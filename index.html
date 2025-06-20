@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mukit Hasan Portfolio</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #000014 url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+      background-size: auto;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 25px 9%;
+      background: rgba(31, 36, 45, 0.85);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+    .navbar .logo {
+      font-size: 30px;
+      font-weight: 700;
+      color: #7cf03d;
+      text-decoration: none;
+    }
+    .navbar ul {
+      display: flex;
+      list-style: none;
+    }
+    .navbar ul li {
+      margin-left: 35px;
+    }
+    .navbar ul li a {
+      font-size: 20px;
+      font-weight: 500;
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.5s ease;
+      cursor: pointer;
+    }
+    .navbar ul li:hover a,
+    .navbar ul li.active a {
+      color: #7cf03d;
+      text-decoration: none;
+    }
+
+    /* Sections */
+    section {
+      padding: 100px 9% 60px;
+    }
+
+    /* Home Section */
+    .home {
+      display: flex;
+      align-items: center;
+      min-height: 100vh;
+      padding-top: 60px;
+      color: #fff;
+      gap: 3rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .home-info {
+      flex: 1;
+      min-width: 300px;
+    }
+    .home-info h1 {
+      font-size: 55px;
+    }
+    .home-info h2 {
+      font-size: 32px;
+      margin-top: -10px;
+    }
+    .home-info p {
+      font-size: 16px;
+      margin: 10px 0 25px;
+    }
+    .home-info .btn-sci {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 30px;
+      background: #7cf03d;
+      border: 2px solid #7cf03d;
+      border-radius: 40px;
+      box-shadow: 0 0 10px #7cf03d;
+      font-size: 16px;
+      color: black;
+      font-weight: 600;
+      transition: 0.5s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: transparent;
+      color: #7cf03d;
+      box-shadow: none;
+    }
+    .home-info .btn-sci .sci {
+      display: flex;
+      gap: 12px;
+    }
+    .home-info .btn-sci .sci a {
+      display: inline-flex;
+      padding: 8px;
+      border: 2px solid #7cf03d;
+      border-radius: 50%;
+      font-size: 20px;
+      color: #7cf03d;
+      transition: 0.5s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .home-info .btn-sci .sci a:hover {
+      background: #7cf03d;
+      color: #1f242d;
+      box-shadow: 0 0 10px #7cf03d;
+    }
+    .home-img {
+      flex: 1;
+      min-width: 280px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative; /* important for adobe icons */
+    }
+    .home-img .img-box {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .home-img .img-box::before {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      width: calc(100% + 30px);
+      height: calc(100% + 30px);
+      border-radius: 50%;
+      background: linear-gradient(0deg, transparent, transparent 80%, #7cf03d);
+      animation: rotate-border 10s linear infinite;
+      z-index: 0;
+    }
+    @keyframes rotate-border {
+      100% { transform: rotate(360deg); }
+    }
+    .home-img .img-box .img-item {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #1f242d;
+      border-radius: 50%;
+      border: 1px solid #1f242ded;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .home-img .img-box .img-item img {
+      position: absolute;
+      top: 30px;
+      display: block;
+      width: 85%;
+      object-fit: cover;
+      mix-blend-mode: lighten;
+    }
+
+    /* Popup styles */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      background: #1f242d;
+      color: #fff;
+      padding: 40px;
+      max-width: 600px;
+      width: 90%;
+      border-radius: 20px;
+      z-index: 999;
+      box-shadow: 0 0 20px #7cf03daa;
+      animation: fadeIn 0.4s ease forwards;
+    }
+    .popup.active {
+      display: block;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .popup h2 {
+      color: #7cf03d;
+      animation: slideUp 0.6s ease forwards;
+    }
+    .popup p, .popup ul {
+      margin-top: 15px;
+      animation: slideUp 0.8s ease forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -60%) scale(0.8); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      color: #7cf03d;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      background: rgba(31, 36, 45, 0.9);
+      color: #7cf03d;
+      font-weight: 600;
+    }
+
+    /* Welcome Overlay */
+    #welcome-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000014;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      animation: fadeOutOverlay 4s forwards;
+      animation-delay: 2s;
+    }
+    .welcome-content h1 {
+      font-size: 3.5rem;
+      color: #7cf03d;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 6px;
+      animation: welcomeTextAnim 2s ease forwards;
+      text-shadow:
+        0 0 5px #7cf03d,
+        0 0 10px #7cf03d,
+        0 0 15px #3ea70b;
+    }
+
+    @keyframes welcomeTextAnim {
+      0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.8);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes fadeOutOverlay {
+      to {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+    }
+
+    /* Adobe icons repositioned below profile pic */
+    #adobe-icons {
+      position: absolute; /* relative to .home-img */
+      bottom: -70px; /* adjust distance below the pic */
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .adobe-icon {
+      width: 48px;
+      height: 48px;
+      background: #1f242dcc;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #7cf03d;
+      font-weight: 700;
+      font-size: 20px;
+      text-shadow: 0 0 6px #7cf03d;
+      animation: floatUpDown 4s ease-in-out infinite;
+      cursor: default;
+      user-select: none;
+      box-shadow: 0 0 10px #7cf03d66;
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    /* stagger delay */
+    #adobe-icons .adobe-icon:nth-child(1) { animation-delay: 0s; }
+    #adobe-icons .adobe-icon:nth-child(2) { animation-delay: 1s; }
+    #adobe-icons .adobe-icon:nth-child(3) { animation-delay: 2s; }
+    #adobe-icons .adobe-icon:nth-child(4) { animation-delay: 3s; }
+
+    .adobe-icon:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 20px #7cf03dcc;
+    }
+
+    @keyframes floatUpDown {
+      0%, 100% {
+        transform: translateY(0);
+        filter: drop-shadow(0 0 3px #7cf03d);
+      }
+      50% {
+        transform: translateY(-10px);
+        filter: drop-shadow(0 0 10px #7cf03d);
+      }
+    }
+
+    /* Shooting star */
+    .shooting-star {
+      position: fixed;
+      top: -10px;
+      left: -150px;
+      width: 150px;
+      height: 2px;
+      background: linear-gradient(90deg, white, rgba(255,255,255,0));
+      opacity: 0;
+      transform: rotate(45deg);
+      animation-name: shooting;
+      animation-timing-function: ease-out;
+      animation-fill-mode: forwards;
+      pointer-events: none;
+      z-index: 50;
+      filter: drop-shadow(0 0 6px #7cf03d);
+    }
+
+    @keyframes shooting {
+      0% {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate(120vw, 120vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Welcome Overlay -->
+  <div id="welcome-overlay" aria-label="Welcome message overlay">
+    <div class="welcome-content">
+      <h1>Welcome to My Portfolio</h1>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <a href="#home" class="logo">portfolio</a>
+    <ul>
+      <li><a href="#home" class="nav-link active">home</a></li>
+      <li><a href="#" class="nav-link" data-popup="about">about</a></li>
+      <li><a href="#" class="nav-link" data-popup="service">service</a></li>
+      <li><a href="#portfolio" class="nav-link">portfolio</a></li>
+      <li><a href="#" class="nav-link" data-popup="contact">contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HOME -->
+  <section class="home" id="home" tabindex="-1">
+    <div class="home-info">
+      <h1>MUKIT HASAN</h1>
+      <h2>I'm a Video Editor & Motion Graphics Designer</h2>
+      <p>Interested in working with me?</p>
+      <div class="btn-sci">
+        <a href="Mukit-Hasan-CV.pdf" class="btn" download>Download CV</a>
+        <div class="sci">
+          <a href="https://facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" title="Facebook">
+            <i class='bx bxl-facebook-circle'></i>
+          </a>
+          <a href="mailto:mukithasan997@gmail.com" title="Email">
+            <i class='bx bxl-gmail'></i>
+          </a>
+          <a href="https://wa.me/8801612270015" target="_blank" rel="noopener noreferrer" title="WhatsApp">
+            <i class='bx bxl-whatsapp'></i>
+          </a>
+          <a href="https://youtube.com/yourchannel" target="_blank" rel="noopener noreferrer" title="YouTube">
+            <i class='bx bxl-youtube'></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="home-img">
+      <div class="img-box">
+        <div class="img-item">
+          <img src="home.png.png" alt="Mukit Hasan" />
+        </div>
+      </div>
+
+      <!-- Adobe icons নিচে, প্রোফাইল ছবির নিচে ফ্লোট করবে -->
+      <div id="adobe-icons" aria-label="Adobe software icons">
+        <div class="adobe-icon" title="After Effects">Ae</div>
+        <div class="adobe-icon" title="Photoshop">Ps</div>
+        <div class="adobe-icon" title="Illustrator">Ai</div>
+        <div class="adobe-icon" title="Premiere Pro">Pr</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popup modals -->
+  <div class="popup" id="about-popup" role="dialog" aria-modal="true" aria-labelledby="about-title" tabindex="-1">
+    <span class="popup-close" data-close aria-label="Close popup">&times;</span>
+    <h2 id="about-title">About Me</h2>
+    <p>
+      Creative video editor with two years of experience in an IT company. Skilled in motion graphics, logo design, and graphic design. Passionate about delivering quality work that engages audiences.
+    </p>
+  </div>
+
+  <div class="popup" id="service-popup" role="dialog" aria-modal="true" aria-labelledby="service-title" tabindex="-1">
+    <span class="popup-close" data-close aria-label="Close popup">&times;</span>
+    <h2 id="service-title">Services</h2>
+    <ul>
+      <li>Motion Graphics</li>
+      <li>Video Editing</li>
+      <li>Logo Design</li>
+      <li>Graphics Design</li>
+    </ul>
+  </div>
+
+  <section id="portfolio" style="padding:100px 9%; max-width:900px; margin:auto; color:#fff;">
+    <h2>Portfolio</h2>
+    <p>Coming soon...</p>
+  </section>
+
+  <div class="popup" id="contact-popup" role="dialog" aria-modal="true" aria-labelledby="contact-title" tabindex="-1">
+    <span class="popup-close" data-close aria-label="Close popup">&times;</span>
+    <h2 id="contact-title">Contact</h2>
+    <p>Email: <a href="mailto:mukithasan997@gmail.com">mukithasan997@gmail.com</a></p>
+    <p>WhatsApp: <a href="https://wa.me/8801612270015" target="_blank">+8801612270015</a></p>
+    <p>Location: Dhaka, Bangladesh</p>
+  </div>
+
+  <footer>
+    &copy; 2025 Mukit Hasan. All rights reserved.
+  </footer>
+
+  <script>
+    // Navbar link active state + popup open
+    const navLinks = document.querySelectorAll('.nav-link');
+    const popups = document.querySelectorAll('.popup');
+    const popupCloseBtns = document.querySelectorAll('[data-close]');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        if (link.dataset.popup) {
+          e.preventDefault();
+          // Close all popups first
+          popups.forEach(p => p.classList.remove('active'));
+
+          // Open targeted popup
+          const popup = document.getElementById(link.dataset.popup + '-popup');
+          popup.classList.add('active');
+          popup.focus();
+
+          // Set active class on navbar links
+          navLinks.forEach(l => l.parentElement.classList.remove('active'));
+          link.parentElement.classList.add('active');
+        } else {
+          // Normal anchor links (like home, portfolio)
+          navLinks.forEach(l => l.parentElement.classList.remove('active'));
+          link.parentElement.classList.add('active');
+        }
+      });
+    });
+
+    // Close popups
+    popupCloseBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        popups.forEach(p => p.classList.remove('active'));
+      });
+    });
+
+    // Close popup if clicked outside popup content
+    window.addEventListener('click', (e) => {
+      popups.forEach(popup => {
+        if (
+          popup.classList.contains('active') &&
+          !popup.contains(e.target) &&
+          !e.target.classList.contains('nav-link')
+        ) {
+          popup.classList.remove('active');
+        }
+      });
+    });
+
+    // Shooting star creation & animation every few seconds
+    function createShootingStar() {
+      const star = document.createElement('div');
+      star.classList.add('shooting-star');
+      star.style.top = Math.random() * window.innerHeight * 0.5 + 'px';
+      star.style.left = '-150px';
+      star.style.animationDuration = (Math.random() * 1 + 1) + 's';
+      document.body.appendChild(star);
+
+      star.addEventListener('animationend', () => {
+        star.remove();
+      });
+    }
+
+    setInterval(createShootingStar, 4000);
+
+    // Remove welcome overlay after animation ends
+    window.addEventListener('load', () => {
+      const welcome = document.getElementById('welcome-overlay');
+      setTimeout(() => {
+        welcome.style.display = 'none';
+      }, 4500);
+    });
+  </script>
+
+</body>
+</html>
